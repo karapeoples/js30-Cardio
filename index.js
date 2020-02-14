@@ -64,23 +64,54 @@ const people = [
 
 // Array.prototype.filter()
 // 1. Filter the list of inventors for those who were born in the 1500's
+const fifteen = inventors.filter(inventor => inventor.year >= 1500 && inventor.year < 1600);
+console.log(fifteen);
 
 // Array.prototype.map()
 // 2. Give us an array of the inventors first and last names
+const fullNames = inventors.map(inventor => `${inventor.first} ${inventor.last}`);
+console.log(fullNames);
 
 // Array.prototype.sort()
 // 3. Sort the inventors by birthdate, oldest to youngest
+const ordered = inventors.sort((first, second) => (first.year > second.year ? 1 : -1));
+console.log(ordered);
 
 // Array.prototype.reduce()
 // 4. How many years did all the inventors live all together?
+const total = inventors.reduce((sum, inventor) => sum + (inventor.passed - inventor.year), 0);
+
+console.log(total);
 
 // 5. Sort the inventors by years lived
+const longestAlive = inventors.sort((first, second) => {
+	const younger = first.passed - first.year;
+	const older = second.passed - second.year;
+	return younger > older ? -1 : 1;
+});
+
+console.log(longestAlive);
 
 // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
 // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
+//Only works in Console on Browser at this link^^...
+// const category = document.querySelector(".mw-category");
+// const links = [...category.querySelectorAll("a")];
+
+// const de = links.map(link => link.textContent).filter(streetName => streetName.includes("de"));
+
+// console.log(de);
 
 // 7. sort Exercise
 // Sort the people alphabetically by last name
+
+const sortAlpha = people.sort((lastOne, nextOne) => {
+	const [last, first] = lastOne.split(", ");
+	const [lastName, firstName] = nextOne.split(", ");
+	return last > lastName ? 1 : -1;
+});
+
+console.log(sortAlpha);
 
 // 8. Reduce Exercise
 // Sum up the instances of each of these
@@ -100,3 +131,13 @@ const data = [
 	"car",
 	"truck",
 ];
+
+const transport = data.reduce((object, item) => {
+	if (!object[item]) {
+		object[item] = 0;
+	}
+	object[item]++;
+	return object;
+}, {});
+
+console.log(transport);
